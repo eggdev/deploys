@@ -1,0 +1,9 @@
+.dockerignore
+.git
+.gitignore
+.*cache
+docker-compose.yml
+Dockerfile
+/build/
+/e2e/
+/node_modules/

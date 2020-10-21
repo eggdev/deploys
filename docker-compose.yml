@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      target: base
+    env_file: .env
+    image: eggdev/testing_app
+    container_name: testing_app
+    tty: true
+    environment:
+      - EXTEND_ESLINT=${EXTEND_ESLINT:-true}
+      - HOST=${HOST:-0.0.0.0}
+      - REACT_APP_SITE_API_URL=${REACT_APP_SITE_API_URL:-http://localhost:8999/api}
+    ports:
+      - '3000:3000' # app
+      - '35729:35729' # live-reload
+    volumes:
+      - git-empty:/app/.git:cached
+      - node-modules:/app/node_modules
+      - npm-cache:/root/.npm
+      - .:/app
+    command: npm run start
+
+  end2end:
+    image: cypress/included:4.5.0
+    depends_on:
+      - app
+    container_name: testing_cypress
+    working_dir: /app/e2e/
+    volumes:
+      - ./e2e:/app/e2e
+
+volumes:
+  git-empty:
+  node-modules:
+  npm-cache:
