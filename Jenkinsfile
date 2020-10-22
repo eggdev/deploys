@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                echo "TODO: deploy to production environment"
+                echo "TODO: We are up and running!"
             }
         }
     }
