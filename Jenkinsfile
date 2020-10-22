@@ -8,5 +8,10 @@ pipeline {
                 echo "TODO: We are up and running!"
             }
         }
+        stage('test') {
+            steps {
+               sh "npm test" 
+            }
+        }
     }
 }
